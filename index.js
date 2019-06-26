@@ -18,9 +18,7 @@ app.use(function (req, res, next) {
 
 // Creates the endpoint for our webhook
 
-app.get('/test', function (req, res) {
-  res.status(200).json({ message: "5555" });
-});
+
 
 app.post('/webhook', (req, res) => {
 
@@ -73,6 +71,15 @@ app.get('/webhook', (req, res) => {
       res.sendStatus(403);
     }
   }
+  else   res.status(200).json({ message: token});
 });
 
-http.createServer(app).listen(5555);
+
+app.get('/test', function (req, res) {
+  res.status(200).json({ message: "5555" });
+});
+
+
+app.run(debug=True)
+
+//http.createServer(app).listen(5555);
