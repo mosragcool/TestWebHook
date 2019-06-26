@@ -1,4 +1,27 @@
+var express = require('express')
+var bodyParser = require('body-parser');
+var http = require('http');
+var https = require('https');
+
+
+var app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname + '/public'));
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");//res.header('Access-Control-Allow-Origin', 'http://localhost:8888'); //or restrict domainะ
+    res.header("Access-Control-Allow-Headers", "cache-control, content-type, departmentuid, hasanonymouspermission, if-modified-since, incus-token, patientorderuid, useruid, patientorderitemuid");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+    next();
+});
+
+
 // Creates the endpoint for our webhook
+
+app.get('/test', function (req, res) {
+  res.status(200).json({ message: "5555" });
+});
+
 app.post('/webhook', (req, res) => {
 
   let body = req.body;
@@ -51,3 +74,5 @@ app.get('/webhook', (req, res) => {
     }
   }
 });
+
+http.createServer(app).listen(5555);
